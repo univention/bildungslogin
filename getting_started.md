@@ -4,15 +4,23 @@ Bildungslogin.de bietet ein zentrales Medienregal, über das sich viele verschie
 
 UCS und die Erweiterung UCS@school stellen für Schulträger und Bildungsministerien schulische Infrastruktur vornehmlich als Identity and Accessmanagement (IAM) bereit. Die dort bereits vorhandenen Benutzerkonten sollen für die Nutzung von bildungslogin.de verwendet werden können, inkl. Zuweisung und Übertragung von Lizenzen, sodass zum einen eine doppelte Pflege entfällt und zum anderen Lehrkräfte und SuS direkt aus der schulischen IT-Infrastruktur heraus mit ihren gewohnten Zugangsdaten auch bildungslogin.de nutzen können.
 
-Die Implementierung ist aktuell mit `UCS@school 4.4 v9` kompatibel.
+Die Implementierung ist aktuell mit `UCS 4.4` (über rpm- files) sowie `UCS 5.0` (als Univention- APP) kompatibel.
 
 ## Abstimmung mit bildungslogin.de
 
 Für den Betrieb des Plugins ist eine Abstimmung mit dem [Bildungslogin](https://www.bildungslogin.de/) notwendig. Sämtliche benötigten Parameter werden durch ein Onboarding erörtert.
 
-## Voraussetzungen / Parameter
+## Übersicht der Installation
 
-Das Modul muss intstalliert sein und SSO seitens extern funktionieren. Auch muss die UCS@School- API extern erreichbar sein. Hier eine Zusammenfassung:
+Das Lizenzmanager- Plugin für UCS besteht grundlegend aus zwei Modulen, welche bei einer Installation über die UCS-App gemeinsam installiert werden:
+- einer GUI- Komponente, um Produkte und Lizenzen einsehen, sowie Zuweisungen vornehmen zu können.
+- einer Schnittstelle, welche die Zuweisungen für BILDUNGSLOGIN zur Verfügung stellt.
+
+Bei einer Installation über mehrere Server betrachten Sie bitte diese Komponenten und verteilen diese Komponenten entsprechend. Beachten Sie bitte, dass die Installation nur auf Master- oder Backup - Servern möglich ist. Die API benötigt (stark limitierten) Schreibzugriff, daher ist eine funktionierende Kommunikation zwischen den Servern sicherzustellen.
+
+### Grundsätzliches
+
+Auf dem UCS- Server muss SSO, sowie die UCS@School- API eingerichtet sein und von extern erreichbar sein. Dies ist notwendig, da BILDUNGSLOGIN die Zuweisungen abrufen muss.
 
 # Installation
 
@@ -23,12 +31,14 @@ Das Modul muss intstalliert sein und SSO seitens extern funktionieren. Auch muss
 - Für SSO wird der `OpenID Connect Provider` benötigt. Die Installation und Konfiguration ist im [UCS Handbuch](https://docs.software-univention.de/handbuch-4.4.html#domain:oidc) beschrieben.
 - Für die gesicherte und verschlüsselte Datenübertragung kann [Let’s Encrypt aus dem App Center](https://www.univention.de/produkte/univention-app-center/app-katalog/letsencrypt/) verwendet werden.
 - Ein Blick in den Hilfe-Artikel ist hilfreich, wenn das [Portal und SSO umkonfiguriert](https://help.univention.com/t/reconfigure-ucs-single-sign-on/16161) wird.
+- Stellen Sie sicher, dass die SSO- Authentifizierung aus dem Internet erreichbar ist - und führen Sie ggf. notwendige Absicherungsmassnahmen durch.
 
 ### 2. UCS@School- Komponenten installieren
 
 1. Als erstes muss UCS@school installiert sein: Melden Sie sich an der UCS Management Konsole an, öffnen Sie den App Center und Installieren Sie die [UCS@school app](https://www.univention.de/produkte/univention-app-center/app-katalog/ucsschool/).
 2. Anschließend muss die UCS@school APIs app installiert werden. Dies können Sie auf der Kommandozeile mit root- Berechtigungen wie folgt erledigen:
- `univention-app install ucsschool-apis` oder `univention-app install ucsschool-apis --username <GUI-Admin-Benutzername>`
+ `univention-app install ucsschool-apis` oder `univention-app install ucsschool-apis --username <GUI-Admin-Benutzername>`.
+3. Stellen Sie sicher, dass die UCS@School- API aus dem Internet erreichbar ist - und führen Sie ggf. notwendige Absicherungsmassnahmen durch.
 
 
 Überprüfen Sie dass alle Skripte erfolgreich durchlaufen wurden: GUI-> Domain -> Domain join: alle erfolgreich?
