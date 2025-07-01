@@ -1,5 +1,9 @@
 # bildungslogin
 
+Das bisherige UCS-Lizenzmanager-Plugin von BILDUNGSLOGIN ist nicht mit UCS-Versionen nach 5.0 wie der neuen UCS-Version 5.2 kompatibel. Das Plugin wird auch nicht mehr weiter entwickelt und der Support im Sommer 2025 eingestellt. BILDUNGSLOGIN bietet jedoch als Ersatz eine neue, verbesserte Lizenzverwaltung an, die ebenfalls im Zusammenspiel mit UCS nutzbar ist. 
+
+Weitere Informationen finden Sie hier : https://github.com/BILDUNGSLOGIN/lizenzmanager_ucs/blob/main/INSTALLATION.md
+
 ## Getting started:
 
 [Installation and usage](getting_started.md)
